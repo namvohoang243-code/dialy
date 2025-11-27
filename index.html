@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang chủ - Hệ Quả Địa Lý Các Chuyển Động Trái Đất</title>
+
+    <!-- Cache Control - Force reload CSS/JS -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome - load trực tiếp -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts - chỉ load Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- REMOVED Animate.css for better performance -->
+    <!-- Custom CSS - with cache busting -->
+    <link rel="stylesheet" href="style.css?v=2024earthpro">
+    <!-- Chatbot Widget CSS -->
+    <link rel="stylesheet" href="chatbot-widget.css">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#409cff">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/814/814513.png">
+</head>
+
+<body>
+    <!-- Page Loader -->
+    <div class="page-loader">
+        <div class="loader-content">
+            <div class="spinner"></div>
+            <div class="loader-text">Đang tải...</div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top site-navbar">
+        <div class="container">
+            <a class="navbar-brand site-name" href="index.html">
+                <i class="fas fa-globe me-2"></i>Địa Lý Trái Đất
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-3">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="baiVietDropdown" role="button" data-bs-toggle="dropdown">
+                            Bài viết
+                        </a>
+                        <ul class="dropdown-menu fade-in">
+                            <li><a class="dropdown-item" href="he-qua-chuyen-dong.html"><i class="fas fa-globe-americas me-2"></i>Hệ quả của chuyển động Trái Đất</a></li>
+                            <li><a class="dropdown-item" href="kien-tao-mang.html"><i class="fas fa-layer-group me-2"></i>Thuyết kiến tạo mảng và cấu trúc Trái Đất</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="congCuDropdown" role="button" data-bs-toggle="dropdown">
+                            Công cụ học tập
+                        </a>
+                        <ul class="dropdown-menu fade-in">
+                            <li><a class="dropdown-item" href="geolab-3d.html"><i class="fas fa-flask me-2"></i>GeoLab 3D</a></li>
+                            <li><a class="dropdown-item" href="trac-nghiem-kham-pha.html"><i class="fas fa-question-circle me-2"></i>Trắc nghiệm</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="veChungToiDropdown" role="button" data-bs-toggle="dropdown">
+                            Về chúng tôi
+                        </a>
+                        <ul class="dropdown-menu fade-in">
+                            <li><a class="dropdown-item" href="aboutus.html#gioithieu">Giới thiệu</a></li>
+                            <li><a class="dropdown-item" href="aboutus.html#mucdich">Mục đích</a></li>
+                            <li><a class="dropdown-item" href="aboutus.html#loinhangui">Lời nhắn gửi</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item me-3">
+                        <a class="nav-link" href="nguon.html">
+                            <i class="fas fa-book me-2"></i>Tài liệu
+                        </a>
+                    </li>
+                    <li class="nav-item nav-item-3d">
+                        <a class="nav-link tour-3d" href="thamquan3d.html">
+                            <i class="fas fa-globe-americas me-2"></i>Mô phỏng 3D
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+<section class="hero" id="hero">
+    <canvas id="particle-canvas"></canvas>
+    <div class="hero-container">
+        <p class="hero-grade">ĐỊA LÝ LỚP 10</p>
+        <h1 class="hero-title">CHUYỂN ĐỘNG TRÁI ĐẤT</h1>
+        <p class="hero-desc">Khám phá những hệ quả địa lý từ chuyển động tự quay và công chuyển của Trái Đất</p>
+    </div>
+</section>
+
+    <!-- Bài Viết Section -->
+    <section class="py-5 text-center baiviet site-bg-section" id="baiviet">
+        <div class="container">
+            <div class="section-header mb-5 reveal">
+                <p class="section-subtitle">KHÁM PHÁ</p>
+                <h2 class="aurora-text" data-text="Nội Dung Chính">Nội Dung Chính</h2>
+                <p class="section-description">Tìm hiểu chi tiết về các chuyển động và hệ quả của chúng</p>
+            </div>
+
+            <!-- 2 Nút -->
+            <div class="hero-buttons mb-5">
+                <a href="#about" class="btn animated-btn me-3">
+                    <i class="fas fa-compass me-2"></i>Khám Phá Ngay
+                </a>
+                <a href="#timhieu" class="btn btn-outline-light btn-outline-premium px-4 py-3">
+                    <i class="fas fa-book me-2"></i>Tìm Hiểu Thêm
+                </a>
+            </div>
+
+            <!-- Carousel - Hệ quả Trái Đất quay & Kiến tạo mảng -->
+            <div class="infinite-carousel">
+                <div class="carousel-track">
+                    <div class="carousel-item-wrapper">
+                        <img src="https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?w=400&q=75" alt="Ngày đêm Trái Đất" loading="lazy">
+                        <div class="carousel-overlay">
+                            <h5>Ngày Đêm</h5>
+                            <p>Hệ quả Trái Đất tự quay 24h</p>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item-wrapper">
+                        <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=400&q=75" alt="Bốn mùa" loading="lazy">
+                        <div class="carousel-overlay">
+                            <h5>Bốn Mùa</h5>
+                            <p>Hệ quả công chuyển & nghiêng trục</p>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item-wrapper">
+                        <img src="https://images.unsplash.com/photo-1495364141860-b0d03eccd065?w=400&q=75" alt="Múi giờ" loading="lazy">
+                        <div class="carousel-overlay">
+                            <h5>Múi Giờ</h5>
+                            <p>Giờ địa phương khác nhau</p>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item-wrapper">
+                        <img src="https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?w=400&q=75" alt="Hiệu ứng Coriolis" loading="lazy">
+                        <div class="carousel-overlay">
+                            <h5>Hiệu Ứng Coriolis</h5>
+                            <p>Ảnh hưởng đến gió và hải lưu</p>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item-wrapper">
+                        <img src="https://images.unsplash.com/photo-1603048588665-791ca8aea617?w=400&q=75" alt="Núi lửa phun trào" loading="lazy">
+                        <div class="carousel-overlay">
+                            <h5>Núi Lửa Phun</h5>
+                            <p>Hoạt động kiến tạo mảng</p>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item-wrapper">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=75" alt="Dãy núi Himalaya" loading="lazy">
+                        <div class="carousel-overlay">
+                            <h5>Dãy Núi Cao</h5>
+                            <p>Hai mảng va chạm nhau</p>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item-wrapper">
+                        <img src="https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=400&q=75" alt="Động đất" loading="lazy">
+                        <div class="carousel-overlay">
+                            <h5>Động Đất</h5>
+                            <p>Mảng kiến tạo trượt lệch</p>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item-wrapper">
+                        <img src="https://images.unsplash.com/photo-1583419536999-903e1728f7c7?w=400&q=75" alt="Rãnh đại dương" loading="lazy">
+                        <div class="carousel-overlay">
+                            <h5>Rãnh Đại Dương</h5>
+                            <p>Mảng đại dương lún xuống</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tìm Hiểu Section -->
+    <section class="py-5 timhieu site-bg-section" id="timhieu">
+        <div class="container">
+            <div class="section-header text-center mb-5 reveal">
+                <p class="section-subtitle text-light">KIẾN THỨC CƠ BẢN</p>
+                <h2 class="text-light mb-4">Các Chủ Đề Chính</h2>
+                <p class="section-description text-light">Ba khía cạnh quan trọng về động lực Trái Đất</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6 reveal-left">
+                    <div class="card hover-card h-100">
+                        <div class="card-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1532693322450-2cb5c511067d?w=500&q=75" class="card-img-top" alt="Hệ quả tự quay - Ngày đêm Trái Đất" loading="lazy">
+                            <div class="card-img-overlay-premium">
+                                <i class="fas fa-sync-alt fa-3x"></i>
+                            </div>
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title mb-3 text-white">Hệ Quả Trái Đất Quay Quanh Trục</h5>
+                            <p class="card-text">Tạo ra ngày đêm, giờ địa phương và hiệu ứng Coriolis.</p>
+                            <a href="baiviet.html#su-luan-phien-ngay-va-dem" class="btn btn-outline-premium btn-sm mt-3">
+                                Tìm Hiểu <i class="fas fa-arrow-right ms-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 reveal-scale">
+                    <div class="card hover-card h-100">
+                        <div class="card-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?w=500&q=75" class="card-img-top" alt="Thuyết kiến tạo mảng" loading="lazy">
+                            <div class="card-img-overlay-premium">
+                                <i class="fas fa-layer-group fa-3x"></i>
+                            </div>
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title mb-3 text-white">Thuyết Kiến Tạo Mảng</h5>
+                            <p class="card-text">Các mảng kiến tạo di chuyển trên manti, tạo lục địa và đại dương.</p>
+                            <a href="tectonic_plates_3d.html" class="btn btn-outline-premium btn-sm mt-3">
+                                Tìm Hiểu <i class="fas fa-arrow-right ms-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 reveal-right">
+                    <div class="card hover-card h-100">
+                        <div class="card-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1603048588665-791ca8aea617?w=500&q=75" class="card-img-top" alt="Hệ quả kiến tạo - Núi lửa" loading="lazy">
+                            <div class="card-img-overlay-premium">
+                                <i class="fas fa-mountain fa-3x"></i>
+                            </div>
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title mb-3 text-white">Hệ Quả Di Chuyển Mảng Kiến Tạo</h5>
+                            <p class="card-text">Tạo ra động đất, núi lửa, dãy núi và rãnh đại dương.</p>
+                            <a href="tectonic_plates_3d.html" class="btn btn-outline-premium btn-sm mt-3">
+                                Tìm Hiểu <i class="fas fa-arrow-right ms-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Công Cụ Học Tập Section -->
+    <section class="py-5 text-center site-bg-section" id="congcu">
+        <div class="container">
+            <div class="section-header mb-5 reveal">
+                <p class="section-subtitle text-white">TRẢI NGHIỆM HỌC TẬP</p>
+                <h2 class="text-white mb-4">Công Cụ Học Tập Tương Tác</h2>
+                <p class="section-description text-white">Khám phá địa lý thông qua các công cụ hiện đại và thú vị</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6 reveal">
+                    <div class="card hover-card h-100" style="background: white; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+                        <div class="card-body text-center p-4">
+                            <div style="font-size: 80px; margin-bottom: 20px;">🔬</div>
+                            <h4 class="card-title mb-3" style="color: #667eea; font-weight: 700;">GeoLab 3D</h4>
+                            <p class="card-text mb-4" style="color: #555; line-height: 1.8;">
+                                Phòng thí nghiệm địa lý ảo cho phép bạn điều chỉnh độ nghiêng trục, tốc độ quay, vị trí quỹ đạo và quan sát kết quả ngay lập tức với mô phỏng 3D chuyên nghiệp.
+                            </p>
+                            <div style="background: #f0f0ff; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                                <p style="margin: 0; color: #667eea; font-weight: 600;">
+                                    <i class="fas fa-star me-2"></i>Tính năng nổi bật
+                                </p>
+                                <ul style="list-style: none; padding: 0; margin-top: 10px; text-align: left;">
+                                    <li style="padding: 5px 0; color: #555;"><i class="fas fa-check text-success me-2"></i>Mô phỏng Trái Đất 3D</li>
+                                    <li style="padding: 5px 0; color: #555;"><i class="fas fa-check text-success me-2"></i>Điều chỉnh tham số thực tế</li>
+                                    <li style="padding: 5px 0; color: #555;"><i class="fas fa-check text-success me-2"></i>Kết quả thời gian thực</li>
+                                </ul>
+                            </div>
+                            <a href="geolab-3d.html" class="btn btn-lg" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; padding: 12px 30px; border-radius: 25px; font-weight: 600;">
+                                <i class="fas fa-flask me-2"></i>Thử nghiệm ngay
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 reveal">
+                    <div class="card hover-card h-100" style="background: white; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+                        <div class="card-body text-center p-4">
+                            <div style="font-size: 80px; margin-bottom: 20px;">📝</div>
+                            <h4 class="card-title mb-3" style="color: #667eea; font-weight: 700;">Trắc Nghiệm</h4>
+                            <p class="card-text mb-4" style="color: #555; line-height: 1.8;">
+                                Kiểm tra kiến thức với 10 câu hỏi từ SGK Địa lý 10. Nhận phân tích AI thông minh, theo dõi tiến bộ qua LocalStorage và nhận gợi ý học tập cá nhân hóa.
+                            </p>
+                            <div style="background: #f0f0ff; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                                <p style="margin: 0; color: #667eea; font-weight: 600;">
+                                    <i class="fas fa-star me-2"></i>Tính năng nổi bật
+                                </p>
+                                <ul style="list-style: none; padding: 0; margin-top: 10px; text-align: left;">
+                                    <li style="padding: 5px 0; color: #555;"><i class="fas fa-check text-success me-2"></i>10 câu hỏi chuẩn SGK</li>
+                                    <li style="padding: 5px 0; color: #555;"><i class="fas fa-check text-success me-2"></i>Phân tích AI kết quả</li>
+                                    <li style="padding: 5px 0; color: #555;"><i class="fas fa-check text-success me-2"></i>Lưu lịch sử làm bài</li>
+                                </ul>
+                            </div>
+                            <a href="trac-nghiem-kham-pha.html" class="btn btn-lg" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; padding: 12px 30px; border-radius: 25px; font-weight: 600;">
+                                <i class="fas fa-question-circle me-2"></i>Bắt đầu làm bài
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 reveal">
+                    <div class="card hover-card h-100" style="background: white; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+                        <div class="card-body text-center p-4">
+                            <div style="font-size: 80px; margin-bottom: 20px;">🤖</div>
+                            <h4 class="card-title mb-3" style="color: #667eea; font-weight: 700;">GeoBot AI</h4>
+                            <p class="card-text mb-4" style="color: #555; line-height: 1.8;">
+                                Trợ lý địa lý thông minh trả lời mọi câu hỏi về chuyển động Trái Đất, ngày đêm, các mùa. Chatbot có sẵn ở mọi trang web với giao diện thân thiện.
+                            </p>
+                            <div style="background: #f0f0ff; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                                <p style="margin: 0; color: #667eea; font-weight: 600;">
+                                    <i class="fas fa-star me-2"></i>Tính năng nổi bật
+                                </p>
+                                <ul style="list-style: none; padding: 0; margin-top: 10px; text-align: left;">
+                                    <li style="padding: 5px 0; color: #555;"><i class="fas fa-check text-success me-2"></i>Trả lời tức thì</li>
+                                    <li style="padding: 5px 0; color: #555;"><i class="fas fa-check text-success me-2"></i>Kiến thức từ SGK</li>
+                                    <li style="padding: 5px 0; color: #555;"><i class="fas fa-check text-success me-2"></i>Gợi ý thông minh</li>
+                                </ul>
+                            </div>
+                            <a href="geolab-3d.html" class="btn btn-lg" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; padding: 12px 30px; border-radius: 25px; font-weight: 600;">
+                                <i class="fas fa-cube me-2"></i>Khám phá Mô phỏng 3D
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Call to Action -->
+            <div class="mt-5 pt-4">
+                <p class="text-white" style="font-size: 18px; margin-bottom: 20px;">
+                    💡 <strong>Mẹo:</strong> Bạn có thể tìm thấy GeoBot 🤖 ở góc dưới bên phải mọi trang!
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Về Chúng Tôi Section -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6 reveal-left">
+                    <div class="about-content">
+                        <p class="section-subtitle">DỰ ÁN GIÁO DỤC</p>
+                        <h2 class="mb-5">Về Dự Án</h2>
+
+                        <div class="about-buttons">
+                            <a href="aboutus.html" class="btn animated-btn me-3">
+                                <i class="fas fa-info-circle me-2"></i>Tìm Hiểu Thêm
+                            </a>
+                            <a href="nguon.html" class="btn btn-outline-light btn-outline-premium">
+                                <i class="fas fa-book me-2"></i>Tài Liệu
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 reveal-right">
+                    <div class="about-media-wrapper">
+                        <div class="about-video-container">
+                            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&q=75" class="about-img" alt="Trái Đất" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-about">
+                <div class="footer-logo-wrapper mb-3">
+                    <i class="fas fa-globe fa-3x" style="color: #409cff;"></i>
+                </div>
+                <h5 class="mb-3" style="color: #409cff;">Địa Lý Trái Đất</h5>
+                <p>Khám phá và tìm hiểu về các chuyển động của Trái Đất và hệ quả địa lý của chúng. Tài liệu học tập sinh động cho học sinh lớp 10.</p>
+                <div class="footer-social mt-4">
+                    <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <h4>Nội Dung</h4>
+                <a href="baiviet.html#tongquan"><i class="fas fa-angle-right me-2"></i>Tổng Quan</a>
+                <a href="baiviet.html#su-luan-phien-ngay-va-dem"><i class="fas fa-angle-right me-2"></i>Sự luân phiên ngày và đêm</a>
+                <a href="baiviet.html#gio-tren-trai-dat"><i class="fas fa-angle-right me-2"></i>Giờ trên Trái Đất</a>
+                <a href="baiviet.html#tham-quan-3d-tu-quay"><i class="fas fa-angle-right me-2"></i>Tham quan 3D chuyển động tự quay</a>
+                <a href="baiviet.html#cac-mua-trong-nam"><i class="fas fa-angle-right me-2"></i>Các mùa trong năm</a>
+                <a href="baiviet.html#ngay-dem-dai-ngan"><i class="fas fa-angle-right me-2"></i>Ngày, đêm dài ngắn theo vĩ độ</a>
+            </div>
+
+            <div class="footer-links">
+                <h4>Công Cụ Học Tập</h4>
+                <a href="geolab-3d.html"><i class="fas fa-angle-right me-2"></i>GeoLab 3D</a>
+                <a href="trac-nghiem-kham-pha.html"><i class="fas fa-angle-right me-2"></i>Trắc Nghiệm</a>
+                <a href="tectonic_plates_3d.html"><i class="fas fa-angle-right me-2"></i>Mô phỏng 3D Kiến Tạo Mảng</a>
+            </div>
+
+            <div class="footer-links">
+                <h4>Hỗ Trợ</h4>
+                <a href="nguon.html"><i class="fas fa-angle-right me-2"></i>Tài Liệu Tham Khảo</a>
+                <a href="aboutus.html"><i class="fas fa-angle-right me-2"></i>Về Dự Án</a>
+                <a href="thamquan3d.html"><i class="fas fa-angle-right me-2"></i>Mô Phỏng 3D</a>
+            </div>
+        </div>
+
+        <hr class="footer-divider">
+
+        <div class="footer-bottom">
+            <p>
+                <i class="far fa-copyright me-1"></i>2025
+                <span class="wave-text">Geography Education Project</span>. All rights reserved
+            </p>
+            <a href="#hero" class="back-to-top" title="Về đầu trang">
+                <i class="fas fa-arrow-up"></i>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Scripts - OPTIMIZED with cache busting -->
+    <!-- Scripts - OPTIMIZED with cache busting -->
+    <script src="script.js?v=2024" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" defer></script>
+
+    <!-- Force immediate execution check -->
+    <script>
+        console.log('🚀 HTML Loaded - Cache Busting Active');
+        console.log('✅ Version: 2024');
+    </script>
+
+    <!-- Chatbot Widget -->
+    <script src="chatbot-widget.js"></script>
+  
+</body>
+
+</html>

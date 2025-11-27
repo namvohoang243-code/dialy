@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bài luận: Hệ Quả Địa Lý Các Chuyển Động Của Trái Đất</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Style cũ -->
+  <link rel="stylesheet" href="style.css">
+  <!-- Style riêng cho trang bài viết -->
+  <link rel="stylesheet" href="baiviet.css">
+  <!-- Chatbot Widget CSS -->
+  <link rel="stylesheet" href="chatbot-widget.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top site-navbar">
+        <div class="container">
+            <!-- Nút toggle sidebar - bên trong container -->
+            <button class="sidebar-toggle-btn" id="sidebarToggleBtn" aria-label="Toggle sidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <a class="navbar-brand site-name animate__animated animate__fadeInDown wave-text" href="index.html">Earth Motion Geography</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-3">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="baiVietDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Bài viết
+                        </a>
+                        <ul class="dropdown-menu fade-in" aria-labelledby="baiVietDropdown">
+                            <li><a class="dropdown-item" href="#tongquan">Tổng quan</a></li>
+                            <li><a class="dropdown-item" href="#su-luan-phien-ngay-va-dem">Sự luân phiên ngày và đêm</a></li>
+                            <li><a class="dropdown-item" href="#gio-tren-trai-dat">Giờ trên Trái Đất</a></li>
+                            <li><a class="dropdown-item" href="#tham-quan-3d-tu-quay">Tham quan 3D chuyển động tự quay</a></li>
+                            <li><a class="dropdown-item" href="#cac-mua-trong-nam">Các mùa trong năm</a></li>
+                            <li><a class="dropdown-item" href="#ngay-dem-dai-ngan">Ngày, đêm dài ngắn theo vĩ độ</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="veChungToiDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Về chúng tôi
+                        </a>
+                        <ul class="dropdown-menu fade-in" aria-labelledby="veChungToiDropdown">
+                            <li><a class="dropdown-item" href="aboutus.html#gioithieu">Giới thiệu</a></li>
+                            <li><a class="dropdown-item" href="aboutus.html#mucdich">Mục đích</a></li>
+                            <li><a class="dropdown-item" href="aboutus.html#loinhangui">Đôi lời nhắn gửi</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item me-3">
+                        <a class="nav-link" href="nguon.html">Tư liệu</a>
+                    </li>
+                    <li class="nav-item me-3">
+                        <a class="nav-link project-logo" href="#"><i class="fa fa-globe"></i> Địa Lý Trái Đất</a>
+                    </li>
+                    <li class="nav-item nav-item-3d">
+                        <a class="nav-link tour-3d" href="thamquan3d.html">
+                            <i class="fas fa-vr-cardboard me-2"></i>Mô phỏng 3D
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+  <!-- ===== Hero giữ nguyên ===== -->
+  <section class="hero-section text-center text-white d-flex align-items-center justify-content-center">
+    <div class="container">
+      <h1 class="display-4 fw-bold animate__animated animate__fadeInDown">Bài Luận: Hệ Quả Địa Lý Các Chuyển Động Của Trái Đất</h1>
+      <p class="lead animate__animated animate__fadeInUp">Khám phá các chuyển động của Trái Đất và hệ quả địa lý theo bài 5 SGK Địa lý 10</p>
+    </div>
+  </section>
+
+  <!-- ===== MAIN CONTENT ===== -->
+    <!-- Overlay cho sidebar -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Nội dung chính -->
+    <div class="content-container">
+      <!-- Sidebar -->
+      <aside class="sidebar" id="sidebar">
+        <ul>
+          <li><a href="#tongquan" class="sidebar-link">
+            <i class="fas fa-info-circle me-2"></i>I. Giới thiệu tổng quan
+          </a></li>
+          <li><a href="#su-luan-phien-ngay-va-dem" class="sidebar-link">
+            <i class="fas fa-sync me-2"></i>II. Hệ quả chuyển động tự quay quanh trục của Trái Đất: Sự luân phiên ngày và đêm
+          </a></li>
+          <li><a href="#gio-tren-trai-dat" class="sidebar-link">
+            <i class="fas fa-clock me-2"></i>III. Hệ quả chuyển động tự quay quanh trục của Trái Đất: Giờ trên Trái Đất
+          </a></li>
+          <li><a href="#tham-quan-3d-tu-quay" class="sidebar-link">
+            <i class="fas fa-vr-cardboard me-2"></i>IV. Tham quan 3D để mô phỏng chuyển động tự quay
+          </a></li>
+          <li><a href="#cac-mua-trong-nam" class="sidebar-link">
+            <i class="fas fa-leaf me-2"></i>V. Hệ quả chuyển động quanh Mặt Trời của Trái Đất: Các mùa trong năm
+          </a></li>
+          <li><a href="#ngay-dem-dai-ngan" class="sidebar-link">
+            <i class="fas fa-sun-moon me-2"></i>VI. Hệ quả chuyển động quanh Mặt Trời của Trái Đất: Ngày, đêm dài ngắn theo vĩ độ
+          </a></li>
+        </ul>
+      </aside>
+    <main class="main-content container">
+      <section id="tongquan" class="fade-section reveal">
+        <h2>I. Giới thiệu tổng quan về Các Chuyển Động Của Trái Đất</h2>
+        <p>Trái Đất có hai chuyển động chính: quay quanh trục và quay quanh Mặt Trời, tạo ra nhiều hệ quả địa lý quan trọng như ngày đêm, mùa, v.v. (rút gọn để demo, bạn thay nội dung đầy đủ vào sau).</p>
+        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa" class="img-fluid rounded shadow mb-3" alt="Trái Đất quay">
+        <video controls class="rounded shadow">
+          <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+        </video>
+      </section>
+
+      <section id="su-luan-phien-ngay-va-dem" class="fade-section reveal">
+        <h2>II. Hệ quả chuyển động tự quay quanh trục của Trái Đất: Sự luân phiên ngày và đêm</h2>
+        <p>Nội dung về sự luân phiên ngày và đêm...</p>
+        <!-- Thêm nội dung chi tiết, hình ảnh, video -->
+      </section>
+
+      <section id="gio-tren-trai-dat" class="fade-section reveal">
+        <h2>III. Hệ quả chuyển động tự quay quanh trục của Trái Đất: Giờ trên Trái Đất</h2>
+        <p>Nội dung về giờ trên Trái Đất...</p>
+        <!-- Thêm nội dung chi tiết, hình ảnh, video -->
+      </section>
+
+      <section id="tham-quan-3d-tu-quay" class="fade-section reveal">
+        <h2>IV. Tham quan 3D để mô phỏng chuyển động tự quay</h2>
+        <p>Nội dung mô phỏng 3D cho sự luân phiên ngày đêm và giờ trên Trái Đất...</p>
+        <a href="thamquan3d.html" class="btn btn-primary">Khám phá 3D</a>
+        <!-- Thêm nội dung chi tiết, hình ảnh, video -->
+      </section>
+
+      <section id="cac-mua-trong-nam" class="fade-section reveal">
+        <h2>V. Hệ quả chuyển động quanh Mặt Trời của Trái Đất: Các mùa trong năm</h2>
+        <p>Nội dung về các mùa trong năm...</p>
+        <!-- Thêm nội dung chi tiết, hình ảnh, video -->
+      </section>
+
+      <section id="ngay-dem-dai-ngan" class="fade-section reveal">
+        <h2>VI. Hệ quả chuyển động quanh Mặt Trời của Trái Đất: Ngày, đêm dài ngắn theo vĩ độ</h2>
+        <p>Nội dung về ngày đêm dài ngắn theo vĩ độ...</p>
+        <!-- Thêm nội dung chi tiết, hình ảnh, video -->
+      </section>
+    </main>
+  </div>
+
+    <!-- Footer Premium (BỎ CỘT KẾT NỐI) -->
+    <footer class="site-footer reveal">
+        <div class="footer-container">
+            <div class="footer-about">
+                <div class="footer-logo-wrapper mb-3">
+                    <i class="fas fa-globe fa-3x" style="color: #409cff;"></i>
+                </div>
+                <h5 class="mb-3" style="color: #409cff;">Earth motion geography</h5>
+                <p>Lan tỏa kiến thức địa lý về chuyển động của Trái Đất đến thế hệ trẻ và cộng đồng. Cùng nhau khám phá và hiểu rõ hơn về hành tinh chúng ta.</p>
+                <div class="footer-social mt-4">
+                    <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <h4>Thông Tin</h4>
+                <a href="#about"><i class="fas fa-angle-right me-2"></i>Về Chúng Tôi</a>
+                <a href="#baiviet"><i class="fas fa-angle-right me-2"></i>Bài Viết</a>
+                <a href="#timhieu"><i class="fas fa-angle-right me-2"></i>Tìm Hiểu</a>
+                <a href="#"><i class="fas fa-angle-right me-2"></i>Liên Hệ</a>
+            </div>
+
+            <div class="footer-links">
+                <h4>Hỗ Trợ</h4>
+                <a href="#"><i class="fas fa-angle-right me-2"></i>Câu Hỏi Thường Gặp</a>
+                <a href="#"><i class="fas fa-angle-right me-2"></i>Điều Khoản Sử Dụng</a>
+                <a href="#"><i class="fas fa-angle-right me-2"></i>Chính Sách Bảo Mật</a>
+                <a href="#"><i class="fas fa-angle-right me-2"></i>Hướng Dẫn</a>
+            </div>
+
+            <!-- BỎ CỘT KẾT NỐI -->
+        </div>
+
+        <hr class="footer-divider">
+
+        <div class="footer-bottom">
+            <p>
+                <i class="far fa-copyright me-1"></i>2025
+                <span class="wave-text">Earth motion geography website</span>. All rights reserved
+            </p>
+            <a href="#hero" class="back-to-top" title="Về đầu trang">
+                <i class="fas fa-arrow-up"></i>
+            </a>
+        </div>
+    </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+
+  <!-- Script xử lý sidebar -->
+  <script>
+    const sidebarToggleBtn = document.getElementById('sidebarToggleBtn');
+    const sidebar = document.getElementById('sidebar');
+    const sidebarLinks = document.querySelectorAll('.sidebar-link');
+    const footer = document.querySelector('.site-footer');
+    const navbarCollapse = document.getElementById('mainNav');
+
+    // Hàm scroll section vào giữa màn hình
+    function scrollToCenter(targetSection) {
+      if (targetSection) {
+        const targetPosition = targetSection.offsetTop;
+        const windowHeight = window.innerHeight;
+        const sectionHeight = targetSection.offsetHeight;
+
+        // Tính toán vị trí để section nằm ở giữa màn hình
+        const scrollToPosition = targetPosition - (windowHeight / 2) + (sectionHeight / 2);
+
+        window.scrollTo({
+          top: scrollToPosition,
+          behavior: 'smooth'
+        });
+      }
+    }
+
+    // Toggle sidebar khi click nút
+    sidebarToggleBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('active');
+      sidebarToggleBtn.classList.toggle('active');
+
+      // Đóng navbar nếu đang mở khi bật sidebar
+      if (sidebar.classList.contains('active') && navbarCollapse.classList.contains('show')) {
+        const bsCollapse = new bootstrap.Collapse(navbarCollapse, {
+          toggle: false
+        });
+        bsCollapse.hide();
+      }
+    });
+
+    // Đóng sidebar khi navbar được mở (trên mobile)
+    navbarCollapse.addEventListener('show.bs.collapse', () => {
+      if (sidebar.classList.contains('active')) {
+        sidebar.classList.remove('active');
+        sidebarToggleBtn.classList.remove('active');
+      }
+    });
+
+    // Xử lý click vào link sidebar để scroll mục vào giữa màn hình
+    sidebarLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault(); // Ngăn hành vi mặc định
+
+        const targetId = link.getAttribute('href').substring(1);
+        const targetSection = document.getElementById(targetId);
+
+        scrollToCenter(targetSection);
+      });
+    });
+
+    // Xử lý click vào link navbar dropdown để scroll mục vào giữa màn hình
+    const dropdownLinks = document.querySelectorAll('.dropdown-menu a[href^="#"]');
+    dropdownLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault(); // Ngăn hành vi mặc định
+
+        const targetId = link.getAttribute('href').substring(1);
+        const targetSection = document.getElementById(targetId);
+
+        scrollToCenter(targetSection);
+      });
+    });
+
+    // Xử lý khi trang được load với hash (ví dụ: baiviet.html#tongquan)
+    window.addEventListener('load', () => {
+      if (window.location.hash) {
+        const targetId = window.location.hash.substring(1);
+        const targetSection = document.getElementById(targetId);
+
+        // Đợi một chút để đảm bảo trang đã load hoàn toàn
+        setTimeout(() => {
+          scrollToCenter(targetSection);
+        }, 100);
+      }
+    });
+
+    // Active state cho sidebar links khi scroll
+    window.addEventListener('scroll', () => {
+      const sections = document.querySelectorAll('section[id]');
+      const windowHeight = window.innerHeight;
+      const scrollPosition = window.scrollY + windowHeight / 2; // Vị trí giữa màn hình
+
+      let currentSection = '';
+
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        const sectionBottom = sectionTop + sectionHeight;
+
+        // Kiểm tra nếu giữa màn hình đang nằm trong section này
+        if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+          currentSection = section.getAttribute('id');
+        }
+      });
+
+      // Nếu không có section nào khớp, kiểm tra section gần nhất
+      if (!currentSection) {
+        let closestSection = null;
+        let closestDistance = Infinity;
+
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.clientHeight;
+          const sectionCenter = sectionTop + sectionHeight / 2;
+          const distance = Math.abs(scrollPosition - sectionCenter);
+
+          if (distance < closestDistance) {
+            closestDistance = distance;
+            closestSection = section.getAttribute('id');
+          }
+        });
+
+        currentSection = closestSection;
+      }
+
+      // Cập nhật active state cho links
+      sidebarLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${currentSection}`) {
+          link.classList.add('active');
+        }
+      });
+
+      // Tự động đóng sidebar khi scroll đến footer
+      if (footer && sidebar.classList.contains('active')) {
+        const footerTop = footer.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+
+        // Chỉ đóng khi footer đã hiện ra hơn 50% trên màn hình
+        if (footerTop < windowHeight * 0.5) {
+          sidebar.classList.add('closing');
+          setTimeout(() => {
+            sidebar.classList.remove('active');
+            sidebar.classList.remove('closing');
+            sidebarToggleBtn.classList.remove('active');
+          }, 300);
+        }
+      }
+    });
+
+    // Set active cho link đầu tiên khi load trang
+    if (sidebarLinks.length > 0) {
+      sidebarLinks[0].classList.add('active');
+    }
+  </script>
+
+  <!-- Three.js for 3D Earth Background -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+  <!-- OrbitControls -->
+  <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r160/examples/js/controls/OrbitControls.js"></script>
+  <!-- Animated Earth Background with Day/Night -->
+  <script src="earth-background-animated.js?v=2024anim"></script>
+  
+  <!-- Chatbot Widget -->
+  <script src="chatbot-widget.js"></script>
+</body>
+</html>

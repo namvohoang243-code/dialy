@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tham Quan 3D - The Time Capsule</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Premium -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- Swiper.js -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../style.css">
+    <!-- Chatbot Widget CSS -->
+    <link rel="stylesheet" href="../chatbot-widget.css">
+
+    <style>
+        body {
+            font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Aurora Text Effect - đồng bộ với index.html */
+        .aurora-text {
+            position: relative;
+            display: inline-block;
+            overflow: visible !important;
+            padding: 15px 25px;
+            font-size: clamp(2.8rem, 7vw, 5.5rem);
+            font-weight: 800;
+            letter-spacing: 0px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #faf3e0, #e8d5a0, #c9a961, #b8860b, #c9a961, #e8d5a0);
+            background-size: 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: auroraShiftLux 10s ease infinite;
+            filter: none !important;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            max-width: 90vw;
+        }
+
+        .aurora-text::before {
+            content: attr(data-text);
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: -1;
+            background: linear-gradient(135deg, #faf3e0, #e8d5a0, #c9a961, #b8860b, #c9a961, #e8d5a0);
+            background-size: 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: blur(20px) brightness(1.5);
+            opacity: 0.6;
+            animation: auroraShiftLux 10s ease infinite;
+        }
+
+        @keyframes auroraShiftLux {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        /* Wave Text Effect - đồng bộ với index.html */
+        .wave-text {
+            display: inline-block;
+            position: relative;
+            animation: waveMoveLux 3s infinite linear;
+            background: linear-gradient(90deg, #e8d5a0, #c9a961, #b8860b, #c9a961, #e8d5a0, #c9a961, #b8860b, #c9a961, #e8d5a0);
+            background-size: 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        @keyframes waveMoveLux {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        /* Hero Section */
+        
+        .hero-3d {
+            padding: 120px 0 60px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(20, 20, 20, 0.8) 100%);
+        }
+        
+        .hero-3d h1 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1rem;
+        }
+        
+        .hero-3d p {
+            font-size: 1.2rem;
+            color: #ccc;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        /* Current Scene Title */
+        
+        .current-scene {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .current-scene h3 {
+            color: #d4af37;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .current-scene h3 i {
+            font-size: 1.5rem;
+        }
+        /* 3D Viewer Container */
+        
+        .viewer-container {
+            padding: 4rem 0;
+        }
+        
+        .viewer-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .polycam-embed {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            height: auto;
+            min-height: 500px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            transition: border-color 0.3s ease;
+        }
+        
+        .polycam-embed:hover {
+            border-color: rgba(212, 175, 55, 0.5);
+        }
+        /* Scene Selector - 3 Cảnh */
+        
+        .scene-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+            padding: 0 1rem;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .scene-btn {
+            background: rgba(212, 175, 55, 0.1);
+            border: 2px solid #d4af37;
+            color: #d4af37;
+            padding: 1.5rem 1.5rem;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            text-align: center;
+        }
+        
+        .scene-btn i {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .scene-btn .scene-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+        
+        .scene-btn .scene-desc {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            font-weight: 400;
+        }
+        
+        .scene-btn:hover {
+            background: rgba(212, 175, 55, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+            border-color: #faf3e0;
+        }
+        
+        .scene-btn.active {
+            background: linear-gradient(135deg, #d4af37, #c9a961);
+            color: #1a1a1a;
+            border-color: #faf3e0;
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.5);
+        }
+        
+        .scene-btn.active i,
+        .scene-btn.active .scene-name,
+        .scene-btn.active .scene-desc {
+            color: #1a1a1a;
+        }
+        /* Instructions */
+        
+        .instructions {
+            background: rgba(212, 175, 55, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 3rem;
+            text-align: center;
+        }
+        
+        .instructions h3 {
+            color: #d4af37;
+            margin-bottom: 1.5rem;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .instruction-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .instruction-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            background: rgba(20, 20, 20, 0.3);
+            border-radius: 10px;
+        }
+        
+        .instruction-item i {
+            font-size: 2rem;
+            color: #d4af37;
+        }
+        
+        .instruction-item p {
+            color: #ccc;
+            margin: 0;
+        }
+        /* Back Button */
+        
+        .back-btn {
+            position: fixed;
+            top: 90px;
+            left: 20px;
+            z-index: 1000;
+            background: rgba(212, 175, 55, 0.9);
+            color: #1a1a1a;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+        
+        .back-btn:hover {
+            background: #d4af37;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+        }
+        /* Loading Animation */
+        
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(20, 20, 20, 0.95);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            border-radius: 20px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .loading-overlay.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(212, 175, 55, 0.1);
+            border-left-color: #d4af37;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
+        }
+        
+        .loading-text {
+            color: #d4af37;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        /* Responsive */
+        
+        @media (max-width: 768px) {
+            .hero-3d h1 {
+                font-size: 2.5rem;
+            }
+            .polycam-embed {
+                aspect-ratio: 16 / 9;
+                min-height: 300px;
+            }
+            .back-btn {
+                top: 80px;
+                left: 10px;
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+            .scene-selector {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .scene-btn {
+                padding: 1.2rem;
+            }
+            .scene-btn i {
+                font-size: 2rem;
+            }
+            .scene-btn .scene-name {
+                font-size: 1rem;
+            }
+            .scene-btn .scene-desc {
+                font-size: 0.8rem;
+            }
+            .current-scene h3 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top site-navbar">
+        <div class="container">
+            <a class="navbar-brand site-name animate__animated animate__fadeInDown wave-text" href="/">Time Capsule</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-3">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="baiVietDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Bài viết
+                        </a>
+                        <ul class="dropdown-menu fade-in" aria-labelledby="baiVietDropdown">
+                            <li><a class="dropdown-item" href="/baiviet#tongquan">Tổng quan</a></li>
+                            <li><a class="dropdown-item" href="/baiviet#lichsu">Lịch sử</a></li>
+                            <li><a class="dropdown-item" href="/baiviet#vanhoa">Văn hóa</a></li>
+                            <li><a class="dropdown-item" href="/baiviet#dulich">Du lịch</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="veChungToiDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Về chúng tôi
+                        </a>
+                        <ul class="dropdown-menu fade-in" aria-labelledby="veChungToiDropdown">
+                            <li><a class="dropdown-item" href="/aboutus#gioithieu">Giới thiệu</a></li>
+                            <li><a class="dropdown-item" href="/aboutus#mucdich">Mục đích</a></li>
+                            <li><a class="dropdown-item" href="/aboutus#loinhangui">Đôi lời nhắn gửi</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item me-3">
+                        <a class="nav-link" href="/nguon">Tư liệu</a>
+                    </li>
+                    <li class="nav-item me-3">
+                        <a class="nav-link project-logo" href="#"><i class="fa fa-landmark"></i> Di sản Việt</a>
+                    </li>
+                    <!-- NÚT THAM QUAN 3D -->
+                    <li class="nav-item nav-item-3d">
+                        <a class="nav-link tour-3d" href="thamquan3d.html">
+                            <i class="fas fa-vr-cardboard me-2"></i>Tham quan 3D
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Back Button -->
+    <button class="back-btn" onclick="window.location.href='index.html'">
+        <i class="fas fa-arrow-left me-2"></i>Quay Lại
+    </button>
+
+    <!-- Hero Section -->
+    <section class="hero-3d">
+        <div class="container">
+            <h1 class="aurora-text" data-text="Tham Quan 360°"><i class="fas fa-vr-cardboard me-3"></i>Tham Quan 360°</h1>
+            <p>Khám phá Đình Thần An Khánh qua 3 không gian khác nhau. Chọn cảnh bên dưới để khám phá.</p>
+        </div>
+    </section>
+
+    <!-- 360 Viewer -->
+    <section class="viewer-container">
+        <div class="container">
+            <!-- Current Scene Title -->
+            <div class="current-scene" id="current-scene-title">
+                <h3>
+                    <i class="fas fa-torii-gate"></i>
+                    <span id="scene-title-text">Trước Đình</span>
+                </h3>
+            </div>
+
+            <div class="viewer-wrapper">
+                <div style="position: relative;">
+                    <!-- Polycam Embed -->
+                    <iframe class="polycam-embed" id="polycam-frame" src="https://poly.cam/capture/e8194a3b-0c60-4074-8d5a-d61dfc3c0447/embed" title="Polycam capture viewer" frameborder="0"></iframe>
+
+                    <!-- Loading Overlay -->
+                    <div class="loading-overlay show" id="loading">
+                        <div class="spinner"></div>
+                        <div class="loading-text">Đang tải mô hình 3D...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scene Selector - 3 Cảnh -->
+            <div class="scene-selector">
+                <button class="scene-btn active" onclick="changeScene('truocdinh')" data-scene="truocdinh">
+                    <i class="fas fa-torii-gate"></i>
+                    <span class="scene-name">Trước Đình</span>
+                    <span class="scene-desc">Sân trước đình thờ</span>
+                </button>
+
+                <button class="scene-btn" onclick="changeScene('trongdinh')" data-scene="trongdinh">
+                    <i class="fas fa-building"></i>
+                    <span class="scene-name">Trong Đình</span>
+                    <span class="scene-desc">Không gian bên trong</span>
+                </button>
+
+                <button class="scene-btn" onclick="changeScene('bantho')" data-scene="bantho">
+                    <i class="fas fa-pray"></i>
+                    <span class="scene-name">Bàn Thờ</span>
+                    <span class="scene-desc">Khu vực thờ cúng</span>
+                </button>
+            </div>
+
+            <!-- Instructions -->
+            <div class="instructions">
+                <h3><i class="fas fa-info-circle me-2"></i>Hướng Dẫn Sử Dụng</h3>
+                <div class="instruction-grid">
+                    <div class="instruction-item">
+                        <i class="fas fa-mouse"></i>
+                        <p><strong>Máy tính:</strong> Kéo chuột để xoay</p>
+                    </div>
+                    <div class="instruction-item">
+                        <i class="fas fa-hand-pointer"></i>
+                        <p><strong>Điện thoại:</strong> Vuốt để xoay</p>
+                    </div>
+                    <div class="instruction-item">
+                        <i class="fas fa-search-plus"></i>
+                        <p><strong>Phóng to/Thu nhỏ:</strong> Cuộn chuột hoặc pinch</p>
+                    </div>
+                    <div class="instruction-item">
+                        <i class="fas fa-expand"></i>
+                        <p><strong>Toàn màn hình:</strong> Nhấn nút ở góc dưới phải</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Dropdown hover effect
+        document.querySelectorAll('.navbar .dropdown').forEach(dropdown => {
+            dropdown.addEventListener('mouseenter', () => {
+                const menu = dropdown.querySelector('.dropdown-menu');
+                const toggle = dropdown.querySelector('[data-bs-toggle="dropdown"]');
+                const bsDropdown = bootstrap.Dropdown.getOrCreateInstance(toggle);
+                bsDropdown.show();
+            });
+            dropdown.addEventListener('mouseleave', () => {
+                const menu = dropdown.querySelector('.dropdown-menu');
+                const toggle = dropdown.querySelector('[data-bs-toggle="dropdown"]');
+                const bsDropdown = bootstrap.Dropdown.getOrCreateInstance(toggle);
+                bsDropdown.hide();
+            });
+        });
+    </script>
+
+    <script>
+        // Danh sách 3 cảnh với link Polycam thật
+        const scenes = {
+            truocdinh: {
+                url: "https://poly.cam/capture/e8194a3b-0c60-4074-8d5a-d61dfc3c0447/embed",
+                title: "Trước Đình",
+                icon: "fa-torii-gate"
+            },
+            trongdinh: {
+                url: "https://poly.cam/capture/f3025f8d-b985-4022-b5b5-cfae04e8a095/embed",
+                title: "Trong Đình",
+                icon: "fa-building"
+            },
+            bantho: {
+                url: "https://poly.cam/capture/2fb400dd-7337-43ac-bde8-45269b453935/embed",
+                title: "Bàn Thờ",
+                icon: "fa-pray"
+            }
+        };
+
+        // Ẩn loading sau 2 giây khi trang load
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('loading').classList.remove('show');
+            }, 2000);
+        });
+
+        // Hàm đổi cảnh
+        function changeScene(sceneId) {
+            const iframe = document.getElementById('polycam-frame');
+            const loading = document.getElementById('loading');
+            const titleText = document.getElementById('scene-title-text');
+            const titleIcon = document.querySelector('#current-scene-title h3 i');
+
+            // Hiện loading
+            loading.classList.add('show');
+
+            // Cập nhật nút active
+            document.querySelectorAll('.scene-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            const activeBtn = document.querySelector(`[data-scene="${sceneId}"]`);
+            if (activeBtn) {
+                activeBtn.classList.add('active');
+            }
+
+            // Cập nhật tiêu đề cảnh hiện tại
+            const scene = scenes[sceneId];
+            titleText.textContent = scene.title;
+            titleIcon.className = `fas ${scene.icon}`;
+
+            // Đổi src của iframe
+            iframe.src = scene.url;
+
+            // Ẩn loading sau 2 giây
+            setTimeout(() => {
+                loading.classList.remove('show');
+            }, 2000);
+
+            // Smooth scroll đến viewer
+            document.querySelector('.viewer-wrapper').scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        }
+    </script>
+    <!-- Chatbot Widget -->
+    <script src="../chatbot-widget.js"></script>
+</body>
+
+</html>

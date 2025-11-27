@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ranh Giới Tectonic - Các Loại Va Chạm Mảng</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chatbot Widget CSS -->
+    <link rel="stylesheet" href="chatbot-widget.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        .title {
+            text-align: center;
+            color: #0ea5e9;
+            margin-bottom: 50px;
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .cards-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            width: 230px;
+            padding: 24px;
+            background: linear-gradient(135deg, #0c4a6e 0%, #075985 100%);
+            border: 2px solid #0ea5e9;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 8px 24px rgba(14, 165, 233, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.3) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 32px rgba(14, 165, 233, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border-color: #06b6d4;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 16px;
+            background: rgba(6, 182, 212, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover .card-icon {
+            background: rgba(6, 182, 212, 0.4);
+            transform: scale(1.1);
+        }
+
+        .card-title {
+            color: #f1f5f9;
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            letter-spacing: 0.3px;
+        }
+
+        .card-desc {
+            color: #cbd5e1;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.4;
+            opacity: 0.85;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            position: relative;
+            background: #0f172a;
+            border: 2px solid #0ea5e9;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(14, 165, 233, 0.2);
+            animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            width: 95vw;
+            height: 95vh;
+            max-width: none;
+            max-height: none;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(40px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .video-container {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000;
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 40px;
+            height: 40px;
+            background: rgba(14, 165, 233, 0.2);
+            border: 2px solid #0ea5e9;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0ea5e9;
+            font-size: 24px;
+            font-weight: 300;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .modal-close:hover {
+            background: rgba(14, 165, 233, 0.4);
+            transform: rotate(90deg);
+        }
+
+        .modal-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 11;
+            background: rgba(15, 23, 42, 0.9);
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            backdrop-filter: blur(8px);
+        }
+
+        .control-btn {
+            width: 44px;
+            height: 44px;
+            background: rgba(14, 165, 233, 0.2);
+            border: 1.5px solid #0ea5e9;
+            border-radius: 10px;
+            cursor: pointer;
+            color: #0ea5e9;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .control-btn:hover {
+            background: rgba(14, 165, 233, 0.4);
+            transform: scale(1.05);
+        }
+
+        .control-btn.active {
+            background: rgba(14, 165, 233, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .cards-wrapper {
+                gap: 16px;
+            }
+
+            .card {
+                width: 200px;
+                padding: 20px;
+            }
+
+            .title {
+                font-size: 24px;
+                margin-bottom: 30px;
+            }
+
+            .modal-content {
+                max-width: 95vw;
+                max-height: 80vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">Các Loại Ranh Giới Va Chạm Mảng Tectonic</div>
+        <div class="cards-wrapper">
+            <div class="card" data-video="0">
+                <div class="card-icon">🔄</div>
+                <div class="card-title">Ranh Giới Hội Tụ</div>
+                <div class="card-desc">Mảng va chạm và xoắn vào nhau</div>
+            </div>
+            <div class="card" data-video="1">
+                <div class="card-icon">🌊</div>
+                <div class="card-title">Mảng Đại Dương ↔ Lục Địa</div>
+                <div class="card-desc">Đại dương ngпогружается dưới lục địa</div>
+            </div>
+            <div class="card" data-video="2">
+                <div class="card-icon">🌀</div>
+                <div class="card-title">Hai Mảng Đại Dương</div>
+                <div class="card-desc">Mảng đại dương va chạm nhau</div>
+            </div>
+            <div class="card" data-video="3">
+                <div class="card-icon">⛏️</div>
+                <div class="card-title">Hai Mảng Lục Địa</div>
+                <div class="card-desc">Lục địa va chạm và nhấn chìm</div>
+            </div>
+            <div class="card" data-video="4">
+                <div class="card-icon">↔️</div>
+                <div class="card-title">Hai Mảng Trượt Qua Nhau</div>
+                <div class="card-desc">Mảng trượt ngang qua lẫn nhau</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeBtn">&times;</button>
+            <div class="video-container">
+                <iframe id="videoPlayer" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="modal-controls">
+                <button class="control-btn" id="fullscreenBtn" title="Toàn màn hình">⛶</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const videos = [
+            { start: 39, end: 46 },
+            { start: 48, end: 60 },
+            { start: 62, end: 73 },
+            { start: 75, end: 87 },
+            { start: 89, end: 105 }
+        ];
+
+        const YOUTUBE_ID = 'AJiVLYQI__c';
+        let currentPlayer = null;
+        let currentVideoIndex = null;
+        let stopTime = null;
+        let checkInterval = null;
+
+        const modal = document.getElementById('modal');
+        const videoPlayer = document.getElementById('videoPlayer');
+        const closeBtn = document.getElementById('closeBtn');
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
+        const cards = document.querySelectorAll('.card');
+
+        function openModal(videoIndex) {
+            currentVideoIndex = videoIndex;
+            const { start, end } = videos[videoIndex];
+            stopTime = end;
+
+            const params = new URLSearchParams({
+                controls: 0,
+                modestbranding: 1,
+                rel: 0,
+                fs: 0,
+                disablekb: 1,
+                showinfo: 0,
+                start: start,
+                autoplay: 1,
+                enablejsapi: 1
+            });
+
+            videoPlayer.src = `https://www.youtube.com/embed/${YOUTUBE_ID}?${params.toString()}`;
+            modal.classList.add('active');
+
+            setTimeout(() => {
+                if (window.YT && window.YT.Player) {
+                    setupPlayer();
+                } else {
+                    loadYouTubeAPI();
+                }
+            }, 500);
+        }
+
+        function mutePlayerOnReady(player) {
+            setTimeout(() => {
+                if (player && typeof player.mute === 'function') {
+                    player.mute();
+                }
+            }, 100);
+        }
+
+        function loadYouTubeAPI() {
+            if (!window.YT) {
+                const tag = document.createElement('script');
+                tag.src = 'https://www.youtube.com/iframe_api';
+                document.head.appendChild(tag);
+            }
+        }
+
+        function setupPlayer() {
+            const iframe = document.getElementById('videoPlayer');
+            if (!iframe) return;
+
+            currentPlayer = new YT.Player(iframe, {
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            startTimeCheck();
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
+                startTimeCheck();
+            }
+        }
+
+        function startTimeCheck() {
+            if (checkInterval) clearInterval(checkInterval);
+
+            checkInterval = setInterval(() => {
+                if (currentPlayer && typeof currentPlayer.getCurrentTime === 'function') {
+                    const currentTime = Math.round(currentPlayer.getCurrentTime());
+                    if (currentTime >= stopTime) {
+                        if (currentPlayer.pauseVideo) {
+                            currentPlayer.pauseVideo();
+                        }
+                        clearInterval(checkInterval);
+                    }
+                }
+            }, 100);
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+            if (currentPlayer && currentPlayer.stopVideo) {
+                currentPlayer.stopVideo();
+            }
+            if (checkInterval) clearInterval(checkInterval);
+            currentPlayer = null;
+            currentVideoIndex = null;
+            videoPlayer.src = '';
+        }
+
+        cards.forEach((card, index) => {
+            card.addEventListener('click', () => {
+                openModal(index);
+            });
+        });
+
+        closeBtn.addEventListener('click', closeModal);
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+
+        fullscreenBtn.addEventListener('click', () => {
+            const modalContent = document.querySelector('.modal-content');
+            if (!document.fullscreenElement) {
+                if (modalContent.requestFullscreen) {
+                    modalContent.requestFullscreen();
+                } else if (modalContent.webkitRequestFullscreen) {
+                    modalContent.webkitRequestFullscreen();
+                } else if (modalContent.mozRequestFullScreen) {
+                    modalContent.mozRequestFullScreen();
+                } else if (modalContent.msRequestFullscreen) {
+                    modalContent.msRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        });
+
+        muteBtn.addEventListener('click', () => {
+            isMuted = !isMuted;
+            if (currentPlayer) {
+                if (isMuted) {
+                    currentPlayer.mute();
+                    muteBtn.textContent = '🔇';
+                    muteBtn.classList.add('active');
+                } else {
+                    currentPlayer.unMute();
+                    muteBtn.textContent = '🔊';
+                    muteBtn.classList.remove('active');
+                }
+            }
+        });
+
+        loadYouTubeAPI();
+    </script>
+  
+  <!-- Chatbot Widget -->
+  <script src="chatbot-widget.js"></script>
+</body>
+</html>
